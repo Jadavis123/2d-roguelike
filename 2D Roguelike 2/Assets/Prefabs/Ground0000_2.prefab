@@ -46,6 +46,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -67,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 85651607
+  m_SortingLayerID: -1536033699
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 810604493947594141, guid: 1fb8dca3363fd0e44b6617586ac9455d, type: 3}
