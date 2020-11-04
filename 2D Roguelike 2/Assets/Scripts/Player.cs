@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,13 +24,20 @@ public class Player : MovingObject
 
     private Animator animator;
     private int food;
+    private float viewDistance;
     
     // Start is called before the first frame update
     protected override void Start()
     {
         animator = GetComponent<Animator>();
 
+        fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
+
         food = GameManager.instance.playerFoodPoints;
+
+        viewDistance = GameManager.instance.playerLight;
+
+        fieldOfView.viewDistance = viewDistance;
 
         foodText.text = "Food: " + food;
 
@@ -39,6 +47,8 @@ public class Player : MovingObject
     private void OnDisable()
     {
         GameManager.instance.playerFoodPoints = food;
+        viewDistance = fieldOfView.viewDistance;
+        GameManager.instance.playerLight = viewDistance;
     }
 
     // Update is called once per frame
@@ -99,6 +109,13 @@ public class Player : MovingObject
             food += pointsPerSoda;
             foodText.text = "+" + pointsPerSoda + " Food: " + food;
             SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
+            other.gameObject.SetActive(false);
+        }
+        else if (other.tag == "Light")
+        {
+            UnityEngine.Debug.Log("light item pickup");
+            fieldOfView.viewDistance += 1f;
+            viewDistance += 1f;
             other.gameObject.SetActive(false);
         }
     }

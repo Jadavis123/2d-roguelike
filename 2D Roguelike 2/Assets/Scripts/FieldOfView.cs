@@ -11,6 +11,7 @@ public class FieldOfView : MonoBehaviour
     private float fov;
     private Vector3 origin;
     private float startingAngle;
+    public float viewDistance = 5f;
     
     // Start is called before the first frame update
     private void Start()
@@ -29,7 +30,6 @@ public class FieldOfView : MonoBehaviour
         int rayCount = 200;
         float angle = 0f;
         float angleIncrease = fov / rayCount;
-        float viewDistance = 5f;
         
         Vector3[] vertices = new Vector3[rayCount + 1 + 1];
         Vector2[] uv = new Vector2[vertices.Length];
