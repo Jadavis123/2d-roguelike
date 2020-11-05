@@ -54,6 +54,9 @@ MonoBehaviour:
   foodCount:
     minimum: 1
     maximum: 5
+  lightCount:
+    minimum: 0
+    maximum: 1
   exit: {fileID: 6188939727374959950, guid: b7473153198b58343b3ab37271cf42f9, type: 3}
   floorTiles:
   - {fileID: 2247380524813731745, guid: 829b200973bd79f4fbaa379a8c7a77b8, type: 3}
@@ -72,6 +75,8 @@ MonoBehaviour:
   foodTiles:
   - {fileID: 1022885028844428421, guid: 73952e35615c9484aaff483804a2c963, type: 3}
   - {fileID: 4085253779574825403, guid: f490bd7e08eed124aa95c1dc2b6d68b3, type: 3}
+  lightItem:
+  - {fileID: 7316686991876514740, guid: 68ea4df0cd8f7a4479837ea6e851dc0d, type: 3}
   enemyTiles:
   - {fileID: 9130281800084943853, guid: ff7e18c5d4c8ebf4984443ff2a51fa66, type: 3}
   - {fileID: 5303238623490598257, guid: 57b80be5b70c246459459d876052f62a, type: 3}

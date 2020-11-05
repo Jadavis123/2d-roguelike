@@ -34,7 +34,6 @@ public abstract class MovingObject : MonoBehaviour
         if (hit1.transform == null && hit2.transform == null)
         {
             StartCoroutine(SmoothMovement(end));
-            Debug.Log("no hit");
             return true;
         }
 

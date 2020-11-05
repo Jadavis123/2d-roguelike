@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public BoardManager boardScript;
     public int playerFoodPoints = 100;
+    public float playerLight = 5f;
     [HideInInspector] public bool playersTurn = true;
 
     private Text levelText;
