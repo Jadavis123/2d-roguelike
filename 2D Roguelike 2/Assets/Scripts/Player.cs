@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class Player : MovingObject
 {
     [SerializeField] private FieldOfView fieldOfView;
-    
-    public int wallDamage = 1;
+
+    //public int wallDamage = 1;
+    public int enemyDamage = 1; 
     public int pointsPerFood = 10;
     public int pointsPerSoda = 20;
     public float restartLevelDelay = 1f;
@@ -57,7 +58,10 @@ public class Player : MovingObject
             vertical = 0;
 
         if (horizontal != 0 || vertical != 0)
+        {
             AttemptMove<Wall>(horizontal, vertical);
+            AttemptMove<Enemy>(horizontal, vertical);
+        }
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
@@ -105,8 +109,12 @@ public class Player : MovingObject
 
     protected override void OnCantMove<T>(T component)
     {
-        Wall hitWall = component as Wall;
-        hitWall.DamageWall(wallDamage);
+        //Wall hitWall = component as Wall;
+        //hitWall.DamageWall(wallDamage);
+        //animator.SetTrigger("playerChop");
+
+        Enemy hitEnemy = component as Enemy;
+        hitEnemy.DamageEnemy(enemyDamage);
         animator.SetTrigger("playerChop");
     }
 

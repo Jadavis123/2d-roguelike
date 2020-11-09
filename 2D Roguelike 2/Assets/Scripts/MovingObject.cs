@@ -61,6 +61,7 @@ public abstract class MovingObject : MonoBehaviour
         RaycastHit2D hit1, hit2;
         bool canMove = Move(xDir, yDir, out hit1, out hit2);
 
+       
         if (hit1.transform == null && hit2.transform == null)
             return;
 
@@ -87,7 +88,7 @@ public abstract class MovingObject : MonoBehaviour
     {
         float outX;
         float outY;
-        
+
         float x = transform.position.x;
         float y = transform.position.y;
 
@@ -95,9 +96,7 @@ public abstract class MovingObject : MonoBehaviour
         outY = (y < 0) ? -10 : ((y < 10) ? 0 : 10);
 
         return new Vector2(outX, outY);
-
-    }
-
+      }
     protected abstract void OnCantMove<T>(T component)
         where T : Component;
 }
