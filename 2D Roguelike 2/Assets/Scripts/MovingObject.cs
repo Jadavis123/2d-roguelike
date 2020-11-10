@@ -52,6 +52,9 @@ public abstract class MovingObject : MonoBehaviour
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
             yield return null;
         }
+
+        //rb2D.MovePosition(end);
+        //yield return null;
     }
 
     protected virtual void AttemptMove<T>(int xDir, int yDir)

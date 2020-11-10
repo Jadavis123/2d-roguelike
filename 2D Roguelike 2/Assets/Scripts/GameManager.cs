@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour
 {
@@ -117,10 +118,12 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < enemies.Count; i++)
         {
-            if (enemies[i].CheckRoom().Equals(GameObject.Find("Player").GetComponent<Player>().CheckRoom())){
+            if (enemies[i].CheckRoom().Equals(GameObject.Find("Player").GetComponent<Player>().CheckRoom()))
+            {
                 enemies[i].MoveEnemy();
-            }
-            //yield return new WaitForSeconds(enemies[i].moveTime);
+                UnityEngine.Debug.Log("Enemy " + i + " moving");
+                yield return new WaitForSeconds(enemies[i].moveTime);
+            }       
         }
 
         playersTurn = true;

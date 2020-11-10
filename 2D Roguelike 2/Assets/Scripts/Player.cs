@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -67,7 +68,10 @@ public class Player : MovingObject
             vertical = 0;
 
         if (horizontal != 0 || vertical != 0)
+        {
             AttemptMove<Wall>(horizontal, vertical);
+        }
+            
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
