@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     public float turnDelay = .05f;
     public static GameManager instance = null;
     public BoardManager boardScript;
-    public int playerFoodPoints = 100;
     public float playerLight = 5f;
     [HideInInspector] public bool playersTurn = true;
 
@@ -20,7 +19,7 @@ public class GameManager : MonoBehaviour
     private List<Enemy> enemies;
     private bool enemiesMoving;
     private bool doingSetup;
-    
+
     // Start is called before the first frame update
     void Awake()
     {

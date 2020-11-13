@@ -37,19 +37,19 @@ public class RoomManager : MonoBehaviour
     public GameObject[] enemyTiles;
     public GameObject[] outerWallTiles;
     public Transform roomHolder;
-    
+
     private List<Vector3> gridPositions = new List<Vector3>();
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void InitialiseList(int xStart, int yStart)
