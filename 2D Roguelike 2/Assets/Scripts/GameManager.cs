@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public BoardManager boardScript;
     public int playerFoodPoints = 100;
+    public float playerLight = 5f;
     [HideInInspector] public bool playersTurn = true;
 
     private Text levelText;
@@ -119,14 +121,15 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(turnDelay);
             }
 
-            for (int i = 0; i < enemies.Count; i++)
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (enemies[i].CheckRoom().Equals(GameObject.Find("Player").GetComponent<Player>().CheckRoom()))
             {
-                if (enemies[i].CheckRoom().Equals(GameObject.Find("Player").GetComponent<Player>().CheckRoom()))
-                {
-                    enemies[i].MoveEnemy();
-                }
-                //yield return new WaitForSeconds(enemies[i].moveTime);
-            }
+                enemies[i].MoveEnemy();
+                UnityEngine.Debug.Log("Enemy " + i + " moving");
+                yield return new WaitForSeconds(enemies[i].moveTime);
+            }       
+        }
 
             playersTurn = true;
             enemiesMoving = false;

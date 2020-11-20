@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7246692223597920282}
   - component: {fileID: 8778557584264821946}
   - component: {fileID: -1023190923165606045}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -167,10 +167,10 @@ MonoBehaviour:
   moveTime: 0.1
   blockingLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 64
   unitLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 128
   fieldOfView: {fileID: 0}
   enemyDamage: 1
   pointsPerFood: 10

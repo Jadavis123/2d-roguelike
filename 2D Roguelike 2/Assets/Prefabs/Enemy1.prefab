@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7693927526835281180}
   - component: {fileID: 505850195957155978}
   - component: {fileID: -4809999696973495263}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Enemy1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -167,10 +167,10 @@ MonoBehaviour:
   moveTime: 0.1
   blockingLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 64
   unitLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 128
   playerDamage: 10
   hp: 3
   enemyAttack1: {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}

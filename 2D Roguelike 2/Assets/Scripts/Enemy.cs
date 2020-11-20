@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : MovingObject
 {
@@ -45,13 +46,8 @@ public class Enemy : MovingObject
             int xDir = 0;
             int yDir = 0;
 
-            float xDist = target.position.x - transform.position.x;
-            float yDist = target.position.y - transform.position.y;
-
-            //if (Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon)
-            //    yDir = target.position.y > transform.position.y ? 1 : -1;
-            //else
-            //    xDir = target.position.x > transform.position.x ? 1 : -1;
+        float xDist = Math.Abs(target.position.x - transform.position.x);
+        float yDist = Math.Abs(target.position.y - transform.position.y);
 
             if (xDist > yDist)
                 xDir = target.position.x > transform.position.x ? 1 : -1;

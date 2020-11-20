@@ -8,6 +8,7 @@ TagManager:
   - Soda
   - Food
   - Enemy
+  - Light
   layers:
   - Default
   - TransparentFX

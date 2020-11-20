@@ -28,10 +28,12 @@ public class BoardManager : MonoBehaviour
     public int height = 10;
     public Count wallCount = new Count(5, 9);
     public Count foodCount = new Count(1, 5);
+    public int lightCount = 1;
     public GameObject exit;
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] foodTiles;
+    public GameObject[] lightItem;
     public GameObject[] enemyTiles;
     public GameObject[] outerWallTiles;
 
@@ -123,6 +125,7 @@ public class BoardManager : MonoBehaviour
                 InitialiseList(10 * x, 10 * y);
                 LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
                 LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
+                LayoutObjectAtRandom(lightItem, lightCount, lightCount);
                 int enemyCount = (int)Mathf.Log(level, 2f);
                 LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
             }
@@ -130,20 +133,20 @@ public class BoardManager : MonoBehaviour
         Instantiate(exit, new Vector3(length + columns - 1, height + rows - 1, 0f), Quaternion.identity);
     }
 
-    public void SetupRooms(int level)
-    {
-        for (int x = 1; x > -2; x--)
-        {
-            for (int y = 1; y > -2; y--)
-            {
-                BoardSetup(10 * x, 10 * y);
-                InitialiseList(10 * x, 10 * y);
-                LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
-                LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
-                int enemyCount = (int)Mathf.Log(level, 2f);
-                LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
-            }
-        }
-        Instantiate(exit, new Vector3(length + columns - 1, height + rows - 1, 0f), Quaternion.identity);
-    }
+    //public void SetupRooms(int level)
+    //{
+    //    for (int x = 1; x > -2; x--)
+    //    {
+    //        for (int y = 1; y > -2; y--)
+    //        {
+    //            BoardSetup(10 * x, 10 * y);
+    //            InitialiseList(10 * x, 10 * y);
+    //            LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
+    //            LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
+    //            int enemyCount = (int)Mathf.Log(level, 2f);
+    //            LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+    //        }
+    //    }
+    //    Instantiate(exit, new Vector3(length + columns - 1, height + rows - 1, 0f), Quaternion.identity);
+    //}
 }

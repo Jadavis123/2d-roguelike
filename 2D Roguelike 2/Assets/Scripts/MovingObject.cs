@@ -34,7 +34,6 @@ public abstract class MovingObject : MonoBehaviour
         if (hit1.transform == null && hit2.transform == null)
         {
             StartCoroutine(SmoothMovement(end));
-            Debug.Log("no hit");
             return true;
         }
 
@@ -53,6 +52,9 @@ public abstract class MovingObject : MonoBehaviour
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
             yield return null;
         }
+
+        //rb2D.MovePosition(end);
+        //yield return null;
     }
 
     protected virtual void AttemptMove<T>(int xDir, int yDir)
