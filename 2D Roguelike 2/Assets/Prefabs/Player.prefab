@@ -172,7 +172,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   fieldOfView: {fileID: 0}
-  wallDamage: 1
+  enemyDamage: 1
   pointsPerFood: 10
   pointsPerSoda: 20
   restartLevelDelay: 1
@@ -183,4 +183,4 @@ MonoBehaviour:
   eatSound2: {fileID: 0}
   drinkSound1: {fileID: 0}
   drinkSound2: {fileID: 0}
-  gameOverSound: {fileID: 0}
+  gameOverSound: {fileID: 8300000, guid: e2beefeb2273f4efe992adf5b8d67c29, type: 3}

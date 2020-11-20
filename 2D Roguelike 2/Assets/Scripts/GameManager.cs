@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     private Text levelText;
     private GameObject levelImage;
-    private int level = 0;
+    private int level = 1;
     private List<Enemy> enemies;
     private bool enemiesMoving;
     private bool doingSetup;
@@ -96,10 +96,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playersTurn || enemiesMoving || doingSetup)
-            return;
+        if (this.gameObject != null)
+        {
+            if (playersTurn || enemiesMoving || doingSetup)
+                return;
 
-        StartCoroutine(MoveEnemies());
+            StartCoroutine(MoveEnemies());
+        }
     }
 
     public void AddEnemyToList(Enemy script)
@@ -109,12 +112,14 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MoveEnemies()
     {
-        enemiesMoving = true;
-        yield return new WaitForSeconds(turnDelay);
-        if (enemies.Count == 0)
+        if (this.gameObject != null)
         {
+            enemiesMoving = true;
             yield return new WaitForSeconds(turnDelay);
-        }
+            if (enemies.Count == 0)
+            {
+                yield return new WaitForSeconds(turnDelay);
+            }
 
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -126,7 +131,8 @@ public class GameManager : MonoBehaviour
             }       
         }
 
-        playersTurn = true;
-        enemiesMoving = false;
+            playersTurn = true;
+            enemiesMoving = false;
+        }
     }
 }

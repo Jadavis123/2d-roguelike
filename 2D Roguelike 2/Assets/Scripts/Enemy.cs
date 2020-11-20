@@ -6,8 +6,11 @@ using System;
 public class Enemy : MovingObject
 {
     public int playerDamage;
+    public int hp = 3; 
     public AudioClip enemyAttack1;
     public AudioClip enemyAttack2;
+    public AudioClip chopSound1;
+    public AudioClip chopSound2;
 
     private Animator animator;
     private Transform target;
@@ -35,26 +38,39 @@ public class Enemy : MovingObject
         skipMove = false;
     }
 
+
     public void MoveEnemy()
     {
-        int xDir = 0;
-        int yDir = 0;
+        if (hp > 0)
+        {
+            int xDir = 0;
+            int yDir = 0;
 
         float xDist = Math.Abs(target.position.x - transform.position.x);
         float yDist = Math.Abs(target.position.y - transform.position.y);
 
-        //if (Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon)
-        //    yDir = target.position.y > transform.position.y ? 1 : -1;
-        //else
-        //    xDir = target.position.x > transform.position.x ? 1 : -1;
+            if (xDist > yDist)
+                xDir = target.position.x > transform.position.x ? 1 : -1;
+            else
+                yDir = target.position.y > transform.position.y ? 1 : -1;
 
-        if (xDist > yDist)
-            xDir = target.position.x > transform.position.x ? 1 : -1;
-        else
-            yDir = target.position.y > transform.position.y ? 1 : -1;
+            AttemptMove<Player>(xDir, yDir);
+        }
 
-        AttemptMove<Player>(xDir, yDir);
     }
+
+    public void DamageEnemy(int loss)
+    {
+        SoundManager.instance.RandomizeSfx(chopSound1, chopSound2);
+        hp -= loss;
+        if (hp <= 0)
+        {
+            gameObject.SetActive(false);
+            //Destroy(this.gameObject);
+            Debug.Log("Enemy Destroyed!");
+        }
+    }
+
 
     protected override void OnCantMove<T>(T component)
     {
