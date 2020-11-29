@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class Player : MovingObject
 {
     [SerializeField] private FieldOfView fieldOfView;
 
-    public int wallDamage = 1;
+    public int enemyDamage = 1;
     public int pointsPerFood = 10;
     public int pointsPerSoda = 20;
     public int maxHealth = 100;
@@ -36,7 +37,7 @@ public class Player : MovingObject
 
         fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
 
-        // playerHealth = GameManager.instance.playerFoodPoints;
+        playerHealth = GameManager.instance.playerFoodPoints;
 
         viewDistance = GameManager.instance.playerLight;
 
@@ -49,7 +50,7 @@ public class Player : MovingObject
 
     private void OnDisable()
     {
-        // GameManager.instance.playerFoodPoints = food;
+        GameManager.instance.playerFoodPoints = playerHealth;
         viewDistance = fieldOfView.viewDistance;
         GameManager.instance.playerLight = viewDistance;
     }
@@ -132,8 +133,12 @@ public class Player : MovingObject
 
     protected override void OnCantMove<T>(T component)
     {
-        Wall hitWall = component as Wall;
-        hitWall.DamageWall(wallDamage);
+        //Wall hitWall = component as Wall;
+        //hitWall.DamageWall(wallDamage);
+        //animator.SetTrigger("playerChop");
+
+        Enemy hitEnemy = component as Enemy;
+        hitEnemy.DamageEnemy(enemyDamage);
         animator.SetTrigger("playerChop");
     }
 
