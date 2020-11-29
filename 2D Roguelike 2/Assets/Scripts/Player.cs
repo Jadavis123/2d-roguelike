@@ -37,7 +37,7 @@ public class Player : MovingObject
 
         fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
 
-        playerHealth = GameManager.instance.playerFoodPoints;
+        playerHealth = GameManager.instance.playerHealthPoints;
 
         viewDistance = GameManager.instance.playerLight;
 
@@ -50,7 +50,7 @@ public class Player : MovingObject
 
     private void OnDisable()
     {
-        GameManager.instance.playerFoodPoints = playerHealth;
+        GameManager.instance.playerHealthPoints = playerHealth;
         viewDistance = fieldOfView.viewDistance;
         GameManager.instance.playerLight = viewDistance;
     }
