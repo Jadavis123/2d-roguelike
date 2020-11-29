@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,17 +11,16 @@ public class GameManager : MonoBehaviour
     public float turnDelay = .05f;
     public static GameManager instance = null;
     public BoardManager boardScript;
-    public int playerFoodPoints = 100;
     public float playerLight = 5f;
     [HideInInspector] public bool playersTurn = true;
 
     private Text levelText;
     private GameObject levelImage;
-    private int level = 1;
+    private int level = 0;
     private List<Enemy> enemies;
     private bool enemiesMoving;
     private bool doingSetup;
-    
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -72,7 +71,7 @@ public class GameManager : MonoBehaviour
 
         levelImage = GameObject.Find("LevelImage");
         levelText = GameObject.Find("LevelText").GetComponent<Text>();
-        levelText.text = "Day " + level;
+        levelText.text = "Level " + level;
         levelImage.SetActive(true);
         Invoke("HideLevelImage", levelStartDelay);
 
@@ -96,13 +95,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.gameObject != null)
-        {
-            if (playersTurn || enemiesMoving || doingSetup)
-                return;
+        if (playersTurn || enemiesMoving || doingSetup)
+            return;
 
-            StartCoroutine(MoveEnemies());
-        }
+        StartCoroutine(MoveEnemies());
     }
 
     public void AddEnemyToList(Enemy script)

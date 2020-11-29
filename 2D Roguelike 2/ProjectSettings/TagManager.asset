@@ -9,6 +9,7 @@ TagManager:
   - Food
   - Enemy
   - Light
+  - Damage
   layers:
   - Default
   - TransparentFX

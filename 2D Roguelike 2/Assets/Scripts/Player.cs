@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,10 +10,11 @@ public class Player : MovingObject
 {
     [SerializeField] private FieldOfView fieldOfView;
 
-    //public int wallDamage = 1;
-    public int enemyDamage = 1; 
+    public int enemyDamage = 1;
     public int pointsPerFood = 10;
     public int pointsPerSoda = 20;
+    public int maxHealth = 100;
+    public int playerHealth = 50;
     public float restartLevelDelay = 1f;
     public Text foodText;
     public AudioClip moveSound1;
@@ -27,7 +28,8 @@ public class Player : MovingObject
     private Animator animator;
     private int food;
     private float viewDistance;
-    
+    //private int playerDamage;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -35,20 +37,20 @@ public class Player : MovingObject
 
         fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
 
-        food = GameManager.instance.playerFoodPoints;
+        playerHealth = GameManager.instance.playerFoodPoints;
 
         viewDistance = GameManager.instance.playerLight;
 
         fieldOfView.viewDistance = viewDistance;
 
-        foodText.text = "Food: " + food;
+        foodText.text = healthString();
 
         base.Start();
     }
 
     private void OnDisable()
     {
-        GameManager.instance.playerFoodPoints = food;
+        GameManager.instance.playerFoodPoints = playerHealth;
         viewDistance = fieldOfView.viewDistance;
         GameManager.instance.playerLight = viewDistance;
     }
@@ -69,15 +71,13 @@ public class Player : MovingObject
             vertical = 0;
 
         if (horizontal != 0 || vertical != 0)
-        {
-            AttemptMove<Enemy>(horizontal, vertical);
-        }
+            AttemptMove<Wall>(horizontal, vertical);
     }
 
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
-        food--;
-        foodText.text = "Food: " + food;
+        //food--;
+        foodText.text = healthString();
 
         base.AttemptMove<T>(xDir, yDir);
 
@@ -103,15 +103,21 @@ public class Player : MovingObject
         }
         else if (other.tag == "Food")
         {
-            food += pointsPerFood;
-            foodText.text = "+" + pointsPerFood + " Food: " + food;
+            playerHealth += pointsPerFood;
+            if (playerHealth > maxHealth) {
+              playerHealth = maxHealth;
+            }
+            foodText.text = "+" + pointsPerFood + " " + healthString();
             SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
             other.gameObject.SetActive(false);
         }
         else if (other.tag == "Soda")
         {
-            food += pointsPerSoda;
-            foodText.text = "+" + pointsPerSoda + " Food: " + food;
+            playerHealth += pointsPerSoda;
+            if (playerHealth > maxHealth) {
+              playerHealth = maxHealth;
+            }
+            foodText.text = "+" + pointsPerSoda + " " + healthString();
             SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
             other.gameObject.SetActive(false);
         }
@@ -122,6 +128,7 @@ public class Player : MovingObject
             viewDistance += 1f;
             other.gameObject.SetActive(false);
         }
+        //add other.tag == "Damage"
     }
 
     protected override void OnCantMove<T>(T component)
@@ -143,14 +150,18 @@ public class Player : MovingObject
     public void LoseFood(int loss)
     {
         animator.SetTrigger("playerHit");
-        food -= loss;
-        foodText.text = "-" + loss + " Food: " + food;
+        playerHealth -= loss;
+        foodText.text = "-" + loss + " " + healthString();
         CheckIfGameOver();
+    }
+
+    public string healthString() {
+      return "Health: " + playerHealth + "/" + maxHealth;
     }
 
     private void CheckIfGameOver()
     {
-        if (food <= 0)
+        if (playerHealth <= 0)
         {
             SoundManager.instance.PlaySingle(gameOverSound);
             SoundManager.instance.musicSource.Stop();
