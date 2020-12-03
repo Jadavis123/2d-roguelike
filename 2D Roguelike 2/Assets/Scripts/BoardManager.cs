@@ -29,13 +29,13 @@ public class BoardManager : MonoBehaviour
     public Count wallCount = new Count(5, 9);
     public Count foodCount = new Count(1, 5);
     public int lightCount = 1;
-    //public int damageCount = 1;
+    public int damageCount = 1;
     public GameObject exit;
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] foodTiles;
     public GameObject[] lightItem;
-    //public GameObject[] damageItem;
+    public GameObject[] damageItem;
     public GameObject[] enemyTiles;
     public GameObject[] outerWallTiles;
 
@@ -128,7 +128,7 @@ public class BoardManager : MonoBehaviour
                 LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
                 LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
                 LayoutObjectAtRandom(lightItem, lightCount, lightCount);
-                //LayoutObjectAtRandom(damageItem, damageCount, damageCount);
+                LayoutObjectAtRandom(damageItem, damageCount, damageCount);
                 int enemyCount = (int)Mathf.Log(level, 2f);
                 LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
             }
