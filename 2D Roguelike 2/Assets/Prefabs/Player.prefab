@@ -173,8 +173,10 @@ MonoBehaviour:
     m_Bits: 128
   fieldOfView: {fileID: 0}
   enemyDamage: 1
-  pointsPerFood: 10
-  pointsPerSoda: 20
+  pointsPerFood: 20
+  pointsPerSoda: 30
+  maxHealth: 100
+  playerHealth: 50
   restartLevelDelay: 1
   foodText: {fileID: 0}
   moveSound1: {fileID: 0}

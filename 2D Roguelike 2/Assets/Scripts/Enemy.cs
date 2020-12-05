@@ -13,6 +13,8 @@ public class Enemy : MovingObject
     public AudioClip chopSound1;
     public AudioClip chopSound2;
 
+    public GameObject[] itemTiles;
+
     private Animator animator;
     private Transform target;
     private bool skipMove;
@@ -73,9 +75,9 @@ public class Enemy : MovingObject
             Debug.Log("Enemy Destroyed! at (" + x + ", " + y + ")");
             Debug.Log("Putting food at (" + x + ", " + y + ")");
             //put a transform into foodTiles here
-            //get tile enemy is on and place food there
-            GameObject[] foodTiles = GameManager.instance.boardScript.foodTiles;
-            GameObject tileChoice = foodTiles[Random.Range(0, foodTiles.Length)];
+            //get tile enemy is on and place item there
+            //GameObject[] foodTiles = GameManager.instance.boardScript.foodTiles;
+            GameObject tileChoice = itemTiles[Random.Range(0, itemTiles.Length)];
             Instantiate(tileChoice, new Vector3(x, y, 0f), Quaternion.identity);
 
         }
