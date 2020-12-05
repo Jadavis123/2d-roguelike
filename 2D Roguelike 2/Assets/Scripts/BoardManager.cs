@@ -126,7 +126,7 @@ public class BoardManager : MonoBehaviour
                 BoardSetup(10 * x, 10 * y);
                 InitialiseList(10 * x, 10 * y);
                 LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
-                LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
+                //LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
                 LayoutObjectAtRandom(lightItem, lightCount, lightCount);
                 //LayoutObjectAtRandom(damageItem, damageCount, damageCount);
                 int enemyCount = (int)Mathf.Log(level, 2f);

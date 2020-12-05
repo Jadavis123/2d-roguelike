@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Random = UnityEngine.Random;
 
 public class Enemy : MovingObject
 {
     public int playerDamage;
-    public int hp = 3; 
+    public int hp = 3;
     public AudioClip enemyAttack1;
     public AudioClip enemyAttack2;
     public AudioClip chopSound1;
@@ -16,7 +17,7 @@ public class Enemy : MovingObject
     private Transform target;
     private bool skipMove;
 
-    
+
     protected override void Start()
     {
         GameManager.instance.AddEnemyToList(this);
@@ -65,9 +66,18 @@ public class Enemy : MovingObject
         hp -= loss;
         if (hp <= 0)
         {
+            float x = target.position.x;
+            float y = target.position.y;
             gameObject.SetActive(false);
             //Destroy(this.gameObject);
-            Debug.Log("Enemy Destroyed!");
+            Debug.Log("Enemy Destroyed! at (" + x + ", " + y + ")");
+            Debug.Log("Putting food at (" + x + ", " + y + ")");
+            //put a transform into foodTiles here
+            //get tile enemy is on and place food there
+            GameObject[] foodTiles = GameManager.instance.boardScript.foodTiles;
+            GameObject tileChoice = foodTiles[Random.Range(0, foodTiles.Length)];
+            Instantiate(tileChoice, new Vector3(x, y, 0f), Quaternion.identity);
+
         }
     }
 
