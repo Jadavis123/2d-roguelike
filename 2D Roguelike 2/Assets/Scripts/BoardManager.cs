@@ -126,11 +126,14 @@ public class BoardManager : MonoBehaviour
                 BoardSetup(10 * x, 10 * y);
                 InitialiseList(10 * x, 10 * y);
                 LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
-                LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
-                LayoutObjectAtRandom(lightItem, lightCount, lightCount);
-                LayoutObjectAtRandom(damageItem, damageCount, damageCount);
+
+                //LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
+                //LayoutObjectAtRandom(lightItem, lightCount, lightCount);
+                //LayoutObjectAtRandom(damageItem, damageCount, damageCount);
+
                 int enemyCount = (int)Mathf.Log(level, 2f);
-                LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+                //int enemyCount = Random.Range(0, level+1);
+                LayoutObjectAtRandom(enemyTiles, 1, level);
             }
         }
         Instantiate(exit, new Vector3(length + columns - 1, height + rows - 1, 0f), Quaternion.identity);

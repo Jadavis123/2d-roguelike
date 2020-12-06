@@ -11,8 +11,8 @@ public class Player : MovingObject
     [SerializeField] private FieldOfView fieldOfView;
 
     public int enemyDamage = 1;
-    public int pointsPerFood = 10;
-    public int pointsPerSoda = 20;
+    public int pointsPerFood = 20;
+    public int pointsPerSoda = 30;
     public int maxHealth = 100;
     public int playerHealth = 50;
     public float restartLevelDelay = 1f;
@@ -38,8 +38,8 @@ public class Player : MovingObject
         fieldOfView = GameObject.Find("FieldOfView").GetComponent<FieldOfView>();
 
         playerHealth = GameManager.instance.playerHealthPoints;
-
         viewDistance = GameManager.instance.playerLight;
+        enemyDamage = GameManager.instance.playerDamage;
 
         fieldOfView.viewDistance = viewDistance;
 
@@ -53,6 +53,7 @@ public class Player : MovingObject
         GameManager.instance.playerHealthPoints = playerHealth;
         viewDistance = fieldOfView.viewDistance;
         GameManager.instance.playerLight = viewDistance;
+        GameManager.instance.playerDamage = enemyDamage;
     }
 
     // Update is called once per frame
@@ -126,13 +127,15 @@ public class Player : MovingObject
         else if (other.tag == "Light")
         {
             UnityEngine.Debug.Log("light item pickup");
+            foodText.text = "View Distance increased | " + healthString();
             fieldOfView.viewDistance += 1f;
             viewDistance += 1f;
             other.gameObject.SetActive(false);
         }
+
         else if (other.tag == "Damage")
         {
-            UnityEngine.Debug.Log("Damage Item pickedup");
+            foodText.text = "Damage increased | " + healthString();
             enemyDamage += 1;
             other.gameObject.SetActive(false);
         }

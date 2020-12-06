@@ -171,6 +171,14 @@ MonoBehaviour:
   unitLayer:
     serializedVersion: 2
     m_Bits: 128
-  playerDamage: 20
+  playerDamage: 10
+  hp: 3
   enemyAttack1: {fileID: 8300000, guid: 0db8cac2749584a009540aa5671ee80d, type: 3}
   enemyAttack2: {fileID: 8300000, guid: 114514a3b3697484ebaa08f7fbf842d3, type: 3}
+  chopSound1: {fileID: 0}
+  chopSound2: {fileID: 0}
+  itemTiles:
+  - {fileID: 4085253779574825403, guid: 3734f66b18d1b47039afc02467968a6f, type: 3}
+  - {fileID: 4085253779574825403, guid: f490bd7e08eed124aa95c1dc2b6d68b3, type: 3}
+  - {fileID: 7316686991876514740, guid: 68ea4df0cd8f7a4479837ea6e851dc0d, type: 3}
+  - {fileID: 1022885028844428421, guid: 73952e35615c9484aaff483804a2c963, type: 3}
