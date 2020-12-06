@@ -105,8 +105,9 @@ public class Player : MovingObject
         else if (other.tag == "Food")
         {
             playerHealth += pointsPerFood;
-            if (playerHealth > maxHealth) {
-              playerHealth = maxHealth;
+            if (playerHealth > maxHealth)
+            {
+                playerHealth = maxHealth;
             }
             foodText.text = "+" + pointsPerFood + " " + healthString();
             SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
@@ -115,8 +116,9 @@ public class Player : MovingObject
         else if (other.tag == "Soda")
         {
             playerHealth += pointsPerSoda;
-            if (playerHealth > maxHealth) {
-              playerHealth = maxHealth;
+            if (playerHealth > maxHealth)
+            {
+                playerHealth = maxHealth;
             }
             foodText.text = "+" + pointsPerSoda + " " + healthString();
             SoundManager.instance.RandomizeSfx(drinkSound1, drinkSound2);
@@ -130,6 +132,7 @@ public class Player : MovingObject
             viewDistance += 1f;
             other.gameObject.SetActive(false);
         }
+
         else if (other.tag == "Damage")
         {
             foodText.text = "Damage increased | " + healthString();
