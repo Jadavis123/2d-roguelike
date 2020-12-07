@@ -1,3 +1,9 @@
+/*
+ * Player.cs - script controlling player character
+ * 
+ * Alek DeMaio, Doug McIntyre, Inaya Alkhatib, JD Davis, June Tejada
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +37,7 @@ public class Player : MovingObject
     //private int playerDamage;
 
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Start() //retrieves stored values from GameManager so that they carry over from level to level, sets up animator and health text
     {
         animator = GetComponent<Animator>();
 
@@ -48,7 +54,7 @@ public class Player : MovingObject
         base.Start();
     }
 
-    private void OnDisable()
+    private void OnDisable() //stores current values in GameManager instance before disabling Player object
     {
         GameManager.instance.playerHealthPoints = playerHealth;
         viewDistance = fieldOfView.viewDistance;
@@ -57,7 +63,7 @@ public class Player : MovingObject
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() //moves field of view mesh with player, gets input from user and tries to move in that direction, checking for enemy collision
     {
         fieldOfView.SetOrigin(transform.position);
         if (!GameManager.instance.playersTurn) return;
@@ -75,7 +81,7 @@ public class Player : MovingObject
             AttemptMove<Enemy>(horizontal, vertical);
     }
 
-    protected override void AttemptMove<T>(int xDir, int yDir)
+    protected override void AttemptMove<T>(int xDir, int yDir) //updates health text, plays pne of 2 player move sounds, sets playersTurn false
     {
         //food--;
         foodText.text = healthString();
@@ -94,15 +100,15 @@ public class Player : MovingObject
         GameManager.instance.playersTurn = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other) //on collision with item/exit, checks what the tag is and performs appropriate action
     {
-        if (other.tag == "Exit")
+        if (other.tag == "Exit") //destroys current scene and calls Restart() to load new one
         {
             Destroy(other);
             enabled = false;
             Invoke("Restart", restartLevelDelay);
         }
-        else if (other.tag == "Food")
+        else if (other.tag == "Food") //adds health to player health, capped at 100, then disables item - same format for all following items
         {
             playerHealth += pointsPerFood;
             if (playerHealth > maxHealth)
@@ -141,7 +147,7 @@ public class Player : MovingObject
         }
     }
 
-    protected override void OnCantMove<T>(T component)
+    protected override void OnCantMove<T>(T component) //calls DamageEnemy() to lower enemy health and check for death, then plays hit animation
     {
         //Wall hitWall = component as Wall;
         //hitWall.DamageWall(wallDamage);
@@ -157,7 +163,7 @@ public class Player : MovingObject
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void LoseFood(int loss)
+    public void LoseFood(int loss) //loses given amount of health, updates health text, then checks if player health <= 0
     {
         animator.SetTrigger("playerHit");
         playerHealth -= loss;
@@ -169,7 +175,7 @@ public class Player : MovingObject
       return "Health: " + playerHealth + "/" + maxHealth;
     }
 
-    private void CheckIfGameOver()
+    private void CheckIfGameOver() //if player health <= 0, stops music and calls GameManager's GameOver()
     {
         if (playerHealth <= 0)
         {

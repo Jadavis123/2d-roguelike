@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/*
+ * MovingObject.cs - parent class for player and enemy classes, contains functions needed for moving units
+ * 
+ * Alek DeMaio, Doug McIntyre, Inaya Alkhatib, JD Davis, June Tejada
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,14 +20,14 @@ public abstract class MovingObject : MonoBehaviour
     //private float inverseMoveTime = 10.0f;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected virtual void Start() //sets up boxCollider2D and rigidbody2D
     {
         boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
         //inverseMoveTime = 1.0f/moveTime;
     }
 
-    protected bool Move(int xDir, int yDir, out RaycastHit2D hit1, out RaycastHit2D hit2)
+    protected bool Move(int xDir, int yDir, out RaycastHit2D hit1, out RaycastHit2D hit2) //checks if movement is possible in the given direction, with collisions on BlockingLayer (walls) or UnitLayer (units)
     {
         Vector2 start = transform.position;
         Vector2 end = start + new Vector2(xDir, yDir);
@@ -40,7 +46,7 @@ public abstract class MovingObject : MonoBehaviour
         return false;
     }
 
-    protected IEnumerator SmoothMovement(Vector3 end)
+    protected IEnumerator SmoothMovement(Vector3 end) //animates movement from current position to given end position
     {
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 
@@ -57,7 +63,7 @@ public abstract class MovingObject : MonoBehaviour
         //yield return null;
     }
 
-    protected virtual void AttemptMove<T>(int xDir, int yDir)
+    protected virtual void AttemptMove<T>(int xDir, int yDir) //tries to move in given direction, calls collision handling function OnCantMove if a collision is detected
         where T : Component
     {
         RaycastHit2D hit1, hit2;
@@ -86,7 +92,7 @@ public abstract class MovingObject : MonoBehaviour
         }
     }
 
-    public Vector2 CheckRoom()
+    public Vector2 CheckRoom() //returns Vector2 corresponding to lower left corner of current room object is occupying, used to make enemies move only if in the same room as player
     {
         float outX;
         float outY;
@@ -99,6 +105,6 @@ public abstract class MovingObject : MonoBehaviour
 
         return new Vector2(outX, outY);
       }
-    protected abstract void OnCantMove<T>(T component)
+    protected abstract void OnCantMove<T>(T component) //will be implemented differently in Player vs Enemy
         where T : Component;
 }

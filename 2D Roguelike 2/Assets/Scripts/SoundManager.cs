@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/*
+ * SoundManager.cs - loads and plays audio clips
+ * 
+ * Alek DeMaio, Doug McIntyre, Inaya Alkhatib, JD Davis, June Tejada
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +18,7 @@ public class SoundManager : MonoBehaviour
     public float lowPitchRange = .95f;
     public float highPitchRange = 1.05f;
 
-    // Start is called before the first frame update
-    void Awake()
+    void Awake() //sets up one, and only one, sound manager for a scene
     {
         if (instance == null)
             instance = this;
@@ -24,13 +29,13 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    public void PlaySingle(AudioClip clip)
+    public void PlaySingle(AudioClip clip) //plays input audio clip
     {
         efxSource.clip = clip;
         efxSource.Play();
     }
 
-    public void RandomizeSfx(params AudioClip[] clips)
+    public void RandomizeSfx(params AudioClip[] clips) //selects a random clip and shifts its pitch randomly within a given range
     {
         int randomIndex = Random.Range(0, clips.Length);
         float randomPitch = Random.Range(lowPitchRange, highPitchRange);

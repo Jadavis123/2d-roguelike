@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/*
+ * Wall.cs - in early versions of project, controlled inner wall behavior - allowed walls to be damaged and destroyed by player
+ * 
+ * Alek DeMaio, Doug McIntyre, Inaya Alkhatib, JD Davis, June Tejada
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

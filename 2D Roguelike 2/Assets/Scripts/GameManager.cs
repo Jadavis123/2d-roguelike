@@ -1,3 +1,9 @@
+/*
+ * GameManager.cs - top level script that controls player, board manager, and enemies
+ * 
+ * Alek DeMaio, Doug McIntyre, Inaya Alkhatib, JD Davis, June Tejada
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +30,7 @@ public class GameManager : MonoBehaviour
     private bool doingSetup;
 
     // Start is called before the first frame update
-    void Awake()
+    void Awake() //sets up single instance of GameManager, as well as list of enemies on the board and a board manager
     {
         if (instance == null)
             instance = this;
@@ -48,7 +54,7 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    void OnSceneLoaded(Scene arg0, LoadSceneMode arg1) //together with OnEnable and OnDisable, increases level and calls InitGame when old level is destroyed and new scene is loaded
     {
         instance.level++;
         instance.InitGame();
@@ -67,7 +73,7 @@ public class GameManager : MonoBehaviour
     //    InitGame();
     //}
 
-    void InitGame()
+    void InitGame() //displays the level screen while level is loading, destroys old enemies, calls SetupScene in BoardManager
     {
         doingSetup = true;
 
@@ -81,13 +87,13 @@ public class GameManager : MonoBehaviour
         boardScript.SetupScene(level);
     }
 
-    private void HideLevelImage()
+    private void HideLevelImage() //hides level screen and sets doingSetup flag false so that Update() knows setup is finished
     {
         levelImage.SetActive(false);
         doingSetup = false;
     }
 
-    public void GameOver()
+    public void GameOver() //displays screen showing how far the player got when they die, then disables the GameManager object
     {
         levelText.text = "After " + level + " days, you starved.";
         levelImage.SetActive(true);
@@ -95,7 +101,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() //calls MoveEnemies coroutine unless it is the player's turn, the enemies are already moving, or the level is being loaded
     {
         if (playersTurn || enemiesMoving || doingSetup)
             return;
@@ -108,7 +114,7 @@ public class GameManager : MonoBehaviour
         enemies.Add(script);
     }
 
-    IEnumerator MoveEnemies()
+    IEnumerator MoveEnemies() //if there are enemies present, runs for loop for each enemy, sets playersTurn and enemiesMoving flags appropriately
     {
         if (this.gameObject != null)
         {
@@ -119,7 +125,7 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(turnDelay);
             }
 
-        for (int i = 0; i < enemies.Count; i++)
+        for (int i = 0; i < enemies.Count; i++) //for each enemy, if they are in the same room as the player, calls that enemy's MoveEnemy()
         {
             if (enemies[i].CheckRoom().Equals(GameObject.Find("Player").GetComponent<Player>().CheckRoom()))
             {

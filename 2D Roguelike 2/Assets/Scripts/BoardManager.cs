@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * BoardManager.cs - handles procedural generation of each level
+ * 
+ * Alek DeMaio, Doug McIntyre, Inaya Alkhatib, JD Davis, June Tejada
+ */
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -43,7 +49,7 @@ public class BoardManager : MonoBehaviour
     private List<Vector3> gridPositions = new List<Vector3>();
     private List<Vector3> roomPositions = new List<Vector3>();
 
-    void InitialiseList(int xStart, int yStart)
+    void InitialiseList(int xStart, int yStart) //loads position vectors of each square in the grid into gridPositions list
     {
         gridPositions.Clear();
 
@@ -56,7 +62,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    void BoardSetup(int xStart, int yStart)
+    void BoardSetup(int xStart, int yStart)//loads floor on every tile in the room with lower left tile (xStart, yStart), then checks position to load wall tile instead of floor
     {
         boardHolder = new GameObject("Board").transform;
 
@@ -65,14 +71,14 @@ public class BoardManager : MonoBehaviour
             for (int y = yStart - 1; y < yStart + rows + 1; y++)
             {
                 GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
-                if (x == xStart - 1 || x == xStart + columns || y == yStart - 1 || y == yStart + rows)
+                if (x == xStart - 1 || x == xStart + columns || y == yStart - 1 || y == yStart + rows) //if at edge of current room
                 {
-                    if (x == xStart + (columns / 2) - 1 || x == xStart + (columns / 2) || y == yStart + (rows / 2) - 1 || y == yStart + (rows / 2))
+                    if (x == xStart + (columns / 2) - 1 || x == xStart + (columns / 2) || y == yStart + (rows / 2) - 1 || y == yStart + (rows / 2)) //if in middle of edge
                     {
-                        if (x == -length - 1 || y == -height - 1 || x == length + columns || y == height + rows)
+                        if (x == -length - 1 || y == -height - 1 || x == length + columns || y == height + rows) //if at the edge of the whole board, load outer wall no matter what
                             toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
                     }
-                    else
+                    else //if at edge but not in middle, loads outer wall - this creates walls between rooms but leaves space for player to pass between rooms
                         toInstantiate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
                 }
 
@@ -97,7 +103,7 @@ public class BoardManager : MonoBehaviour
     //    }
     //}
 
-    Vector3 RandomPosition()
+    Vector3 RandomPosition() //selects a random position from gridPositions and returns + removes it
     {
         int randomIndex = Random.Range(0, gridPositions.Count);
         Vector3 randomPosition = gridPositions[randomIndex];
@@ -105,7 +111,7 @@ public class BoardManager : MonoBehaviour
         return randomPosition;
     }
 
-    void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
+    void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum) //for given array of tiles, lays out a random number (between min and max) of random selections from array at random positions
     {
         int objectCount = Random.Range(minimum, maximum + 1);
 
@@ -117,7 +123,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void SetupScene(int level)
+    public void SetupScene(int level) //sets up 3x3 rooms of 10x10 tiles, then lays out inner walls and enemies randomly and spawns exit in top right of grid
     {
         for (int x = 1; x > -2; x--)
         {

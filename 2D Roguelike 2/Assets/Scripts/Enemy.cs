@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/*
+ * Enemy.cs - controls both enemy prefabs
+ * 
+ * Alek DeMaio, Doug McIntyre, Inaya Alkhatib, JD Davis, June Tejada
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -20,7 +26,7 @@ public class Enemy : MovingObject
     private bool skipMove;
 
 
-    protected override void Start()
+    protected override void Start() //sets up animation, selects player target, adds to list of enemies in game manager
     {
         GameManager.instance.AddEnemyToList(this);
         animator = GetComponent<Animator>();
@@ -28,7 +34,7 @@ public class Enemy : MovingObject
         base.Start();
     }
 
-    protected override void AttemptMove<T>(int xDir, int yDir)
+    protected override void AttemptMove<T>(int xDir, int yDir) //in earlier versions, allowed for enemies to move every other turn rather than every turn
     {
         if (skipMove)
         {
@@ -42,7 +48,7 @@ public class Enemy : MovingObject
     }
 
 
-    public void MoveEnemy()
+    public void MoveEnemy() //checks if distance to player is greater in x or y direction, then moves in the appropriate direction
     {
         if (hp > 0)
         {
@@ -62,7 +68,7 @@ public class Enemy : MovingObject
 
     }
 
-    public void DamageEnemy(int loss)
+    public void DamageEnemy(int loss) //removes given amount of health from enemy, then destroys it and drops an item if health goes below 0
     {
         SoundManager.instance.RandomizeSfx(chopSound1, chopSound2);
         hp -= loss;
@@ -84,7 +90,7 @@ public class Enemy : MovingObject
     }
 
 
-    protected override void OnCantMove<T>(T component)
+    protected override void OnCantMove<T>(T component) //overrides MovingObject abstract method - if collision is with player, removes health from player and plays attack animation/sound
     {
         Player hitPlayer = component as Player;
 
