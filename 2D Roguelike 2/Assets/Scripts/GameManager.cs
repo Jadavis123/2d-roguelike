@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver() //displays screen showing how far the player got when they die, then disables the GameManager object
     {
-        levelText.text = "After " + level + " days, you starved.";
+        levelText.text = "After " + level + " levels, you died.";
         levelImage.SetActive(true);
         enabled = false;
     }
